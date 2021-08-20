@@ -1,0 +1,13 @@
+.header__button-out {
+    color: #A9A9A9;
+    background-color: black;
+    padding: 0;
+    border: none;
+    font-weight: normal;
+    font-size: 18px; 
+    line-height: 1.2; 
+    margin: 10px auto; 
+    cursor: pointer;
+    text-decoration: none;
+    width: fit-content;
+}

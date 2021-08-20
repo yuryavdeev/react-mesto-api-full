@@ -1,0 +1,17 @@
+.header__button-auth {
+    color: white;
+    background-color: black;
+    padding: 0;
+    margin: 0;
+    border: none;
+    font-weight: normal;
+    font-size: 18px; 
+    line-height: 1.2; 
+    margin: 0; 
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.header__button-auth:hover {
+    opacity: 0.6;
+}

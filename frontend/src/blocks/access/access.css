@@ -1,0 +1,13 @@
+.access {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 260px;
+    margin: auto;
+}
+
+@media screen and (min-width: 880px) {
+    .access {
+        max-width: 358px;
+    }
+}
