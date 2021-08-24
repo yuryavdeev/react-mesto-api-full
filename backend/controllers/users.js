@@ -21,7 +21,9 @@ module.exports.login = (req, res, next) => {
         .cookie('token', token, { // попадет в заголовок Cookies
           maxAge: 3600000 * 24 * 7, // иначе после закр-я сессии - удалится
           httpOnly: true, // исключили доступ из JavaScript в браузере
-          sameSite: true, // отпр. кук - если запрос с этого-же домена
+          // sameSite: true, // отпр. кук - если запрос с этого-же домена
+          sameSite: 'None',
+          secure: true,
         })
         .send({ message: 'Авторизация прошла успешно!' });
     })
