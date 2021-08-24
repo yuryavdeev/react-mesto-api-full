@@ -31,15 +31,17 @@ function App() {
 
     // проверка токена
     React.useEffect(() => {
-        if (localStorage.token) {
-            checkToken(localStorage.token)
-                .then((res) => {
-                    setLoggedIn(true);
-                    setUserEmail(res.data.email);
-                    moveToMain();
-                })
-                .catch(err => console.log(err))
-        }
+        // if (localStorage.token) {
+        checkToken()
+            // checkToken(localStorage.token)
+            .then((res) => {
+                console.log(res);
+                setLoggedIn(true);
+                setUserEmail(res.data.email);
+                moveToMain();
+            })
+            .catch(err => console.log(err))
+        // }
     }, []);
 
     React.useEffect(() => {
@@ -59,12 +61,13 @@ function App() {
         setIsSubmitting(true);
         authorize({ password, email })
             .then((data) => {
-                if (data.token) {
-                    localStorage.setItem('token', data.token);
+                console.log(data)
+                // if (data.token) {
+                    // localStorage.setItem('token', data.token);
                     setUserEmail(email);
                     setLoggedIn(true);
                     moveToMain();
-                }
+                // }
             })
             .catch((err) => {
                 console.log(err);
@@ -76,7 +79,7 @@ function App() {
 
     // клик на 'Выход' - удаление токена
     const onSignOut = () => {
-        localStorage.removeItem('token');
+        // localStorage.removeItem('token');
         setUserEmail('');
         moveToAuth();
         setLoggedIn(false);
@@ -108,7 +111,7 @@ function App() {
     }
 
     const moveToAuth = () => {
-        history.push('/sign-in');
+        history.push('/signin');
     }
 
     const closeAllPopups = () => {
@@ -237,14 +240,14 @@ function App() {
                 />
 
                 <Switch>
-                    <Route exact path="/sign-in">
+                    <Route exact path="/signin">
                         <Login
                             handleLoginSubmit={onLogin}
                             isSubmitting={isSubmitting}
                         />
                     </Route>
 
-                    <Route exact path="/sign-up">
+                    <Route exact path="/signup">
                         <Register
                             handleRegistrationSubmit={onRegister}
                             isSubmitting={isSubmitting}

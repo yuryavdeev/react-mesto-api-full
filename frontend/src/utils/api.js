@@ -12,6 +12,7 @@ class Api {
 
     async getUserInfo() {
         const res = await fetch(`${this._url}/users/me`, {
+            credentials: 'include',
             headers: this._headers
         });
         return this._checkResponse(res);
@@ -20,12 +21,14 @@ class Api {
     async changeLikeCardStatus(id, isLikedCard) {
         if (!isLikedCard) {
             const res = await fetch(`${this._url}/cards/likes/${id}`, {
+                credentials: 'include',
                 method: 'PUT',
                 headers: this._headers
             });
             return this._checkResponse(res);
         } else {
             const res = await fetch(`${this._url}/cards/likes/${id}`, {
+                credentials: 'include',
                 method: 'DELETE',
                 headers: this._headers
             });
@@ -35,6 +38,7 @@ class Api {
 
     getCards() {
         return fetch(`${this._url}/cards`, {
+            credentials: 'include',
             headers: this._headers
         })
             .then(this._checkResponse)
@@ -42,6 +46,7 @@ class Api {
 
     async deleteCard(id) {
         const res = await fetch(`${this._url}/cards/${id}`, {
+            credentials: 'include',
             method: 'DELETE',
             headers: this._headers
         });
@@ -50,6 +55,7 @@ class Api {
 
     setUserInfo({ name, about }) {
         return fetch(`${this._url}/users/me`, {
+            credentials: 'include',
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
@@ -62,6 +68,7 @@ class Api {
 
     saveNewCard({ name, url }) {
         return fetch(`${this._url}/cards`, {
+            credentials: 'include',
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({
@@ -74,6 +81,7 @@ class Api {
 
     setNewAvatar(url) {
         return fetch(`${this._url}/users/me/avatar`, {
+            credentials: 'include',
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
@@ -87,7 +95,7 @@ class Api {
 const api = new Api({         // <=  тут же создал экзмепляр, ниже экспорт
     url: urlFetch,
     headers: {
-        authorization: token,
+        // authorization: token,
         'Content-Type': 'application/json'
     }
 });
