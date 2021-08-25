@@ -76,7 +76,7 @@ module.exports.getAllUsers = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.getUser = (req, res, next) => {
+module.exports.getUser = (req, res, next) => { // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   User.findById(req.params.userId ? req.params.userId : req.user._id)
     .orFail(() => {
       throw new NotFoundError(messageList.notFoundUser);

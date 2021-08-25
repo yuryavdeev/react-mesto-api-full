@@ -8,22 +8,22 @@ const {
 
 router.get('/', getAllUsers);
 
-router.get('/me', getUser);
+router.get('/me', getUser); // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 router.get('/:userId',
   celebrate({
     params: Joi.object().keys({
       userId: Joi.string().length(24).hex().required(),
-    }).unknown(),
+    }),
   }),
-  getUser);
+  getUser); // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 router.patch('/me',
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().min(2).max(30).required(),
       about: Joi.string().min(2).max(30).required(),
-    }).unknown(),
+    }),
   }),
   updateUser);
 
@@ -32,7 +32,7 @@ router.patch('/me/avatar',
     body: Joi.object().keys({
       avatar: Joi.string().required().custom(checkUrl), // <<<===
       // .uri(),
-    }).unknown(),
+    }),
   }),
   updateAvatar);
 
