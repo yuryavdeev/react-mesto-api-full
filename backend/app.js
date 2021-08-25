@@ -3,7 +3,7 @@ require('dotenv').config(); // env-переменные из файла .env д�
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const { celebrate, Joi } = require('celebrate');
+const { celebrate, errors, Joi } = require('celebrate');
 const helmet = require('helmet');
 
 const usersRoutes = require('./routes/users');
@@ -12,7 +12,6 @@ const { messageList } = require('./utils/utils');
 const { login, createUser, deleteAuth } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/not-found-err');
-const BadRequestError = require('./errors/bad-request');
 const { handleError } = require('./errors/err');
 const { checkUrl } = require('./utils/utils');
 const cors = require('./middlewares/cors');
@@ -69,21 +68,9 @@ app.post('/signup',
 app.use(auth);
 
 // роуты, которым авторизация нужна
-app.use('/signout',
-  celebrate({
-    cookies: Joi.object().keys({
-      token: Joi.string().required().min(20),
-    }),
-  }),
-  deleteAuth);
+app.use('/signout', deleteAuth);
 
-app.use('/users',
-  celebrate({
-    cookies: Joi.object().keys({
-      token: Joi.string().required().min(20),
-    }),
-  }),
-  usersRoutes);
+app.use('/users', usersRoutes);
 
 app.use('/cards',
   celebrate({
@@ -102,15 +89,7 @@ app.use((req, res, next) => {
 app.use(errorLogger); // подключаем логгер ошибок - после роутов и до обработчиков ошибок
 
 // обработчик ошибок celebrate
-app.use((err, req, res, next) => {
-  if (err.details) {
-    const errorBody = err.details.get('body'); // получил доступ к данным
-    const error = new BadRequestError(errorBody);
-    next(error);
-  } else {
-    next(err);
-  }
-});
+app.use(errors());
 
 app.use(handleError); // единый обработчик
 

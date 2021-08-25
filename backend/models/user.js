@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const { messageList } = require('../utils/utils');
 const UnauthorizedError = require('../errors/unauthorized-err');
 
-const regexUrl = /ht{1,2}ps?:\/\/[a-z0-9\\-]+\.[a-z0-9]{2,3}\S*/;
+// const regexUrl = /ht{1,2}ps?:\/\/[a-z0-9\\-]+\.[a-z0-9]{2,3}\S*/;
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -26,8 +26,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
     validate: {
-      validator: (avatar) => regexUrl.test(avatar),
-      // validator: (avatar) => validator.isURL(avatar), // <<<===
+      // validator: (avatar) => regexUrl.test(avatar),
+      validator: (avatar) => validator.isURL(avatar), // <<<===
       message: 'Ссылка для создания аватара некорректна!', // <= false
     },
   },
