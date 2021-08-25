@@ -13,7 +13,7 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import PopupWithConfirm from './PopupWithConfirm'
 import api from '../utils/api';
-import { register, authorize, checkToken } from '../utils/auth';
+import { register, authorize, checkAuth, deleteAuth } from '../utils/auth';
 import { CurrentUser } from '../contexts/CurrentUserContext';
 import UnionV from '../images/union-v.svg';
 import UnionX from '../images/union-x.svg';
@@ -29,28 +29,26 @@ function App() {
     const [isSubmitting, setIsSubmitting] = React.useState(false);
     const [userEmail, setUserEmail] = React.useState('');
 
-    // проверка токена
+    // авторизация при входе
     React.useEffect(() => {
-        // if (localStorage.token) {
-        checkToken()
-            // checkToken(localStorage.token)
+        checkAuth()
             .then((res) => {
-                console.log(res);
+                console.log(res)
                 setLoggedIn(true);
-                setUserEmail(res.data.email);
+                setUserEmail(res.email);
                 moveToMain();
             })
-            .catch(err => console.log(err))
-        // }
+            .catch(err => {
+                console.log(err);
+                moveToAuth();
+            })
     }, []);
 
     React.useEffect(() => {
         Promise.all([api.getUserInfo(), api.getCards()])
             .then(([userData, dataCardList]) => {
-
                 setCurrentUser(userData);
-
-                dataCardList = dataCardList.slice(0, 6);  // <<<===
+                // dataCardList = dataCardList.slice(0, 6);  // <<<===
                 setCards(dataCardList);
             })
             .catch(err => console.log(err))
@@ -62,12 +60,9 @@ function App() {
         authorize({ password, email })
             .then((data) => {
                 console.log(data)
-                // if (data.token) {
-                    // localStorage.setItem('token', data.token);
-                    setUserEmail(email);
-                    setLoggedIn(true);
-                    moveToMain();
-                // }
+                setUserEmail(email);
+                setLoggedIn(true);
+                moveToMain();
             })
             .catch((err) => {
                 console.log(err);
@@ -77,12 +72,18 @@ function App() {
             .finally(() => setIsSubmitting(false))
     }
 
-    // клик на 'Выход' - удаление токена
+    // клик на 'Выход'
     const onSignOut = () => {
-        // localStorage.removeItem('token');
-        setUserEmail('');
-        moveToAuth();
-        setLoggedIn(false);
+        deleteAuth()
+            .then((data) => {
+                console.log(data);
+                setUserEmail('');
+                moveToAuth();
+                setLoggedIn(false);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
 
     // регистрация при сабмите
@@ -123,8 +124,9 @@ function App() {
         setInfoTooltipOpen(false);
     }
 
+    // лайки
     const handleCardLike = (clickedCard) => {
-        const isLikedCard = clickedCard.likes.some(someLike => someLike._id === currentUser._id);
+        const isLikedCard = clickedCard.likes.some(someLike => someLike === currentUser._id);
         api.changeLikeCardStatus(clickedCard._id, isLikedCard)
             .then((returnedCard) => {
                 setCards((cards) =>

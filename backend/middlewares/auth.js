@@ -9,17 +9,18 @@ module.exports = (req, res, next) => {
   if (!req.cookies.token) {
     const err = new ForbiddenError(messageList.forbiddenMessage);
     next(err);
+  } else {
+    let payload;
+    try {
+      // метод jwt.verify вернёт пейлоуд токена, если тот прошёл проверку
+      payload = jwt.verify(req.cookies.token,
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
+    } catch (e) {
+      const err = new UnauthorizedError(messageList.unauthorizedCheckAuthMessage);
+      next(err);
+    }
+    // пейлоуд с данными пользователя (_id) в объект запроса
+    req.user = payload;
+    next();
   }
-  let payload;
-  try {
-    // метод jwt.verify вернёт пейлоуд токена, если тот прошёл проверку
-    payload = jwt.verify(req.cookies.token,
-      NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
-  } catch (e) {
-    const err = new UnauthorizedError(messageList.unauthorizedCheckAuthMessage);
-    next(err);
-  }
-  // пейлоуд с данными пользователя (_id) в объект запроса
-  req.user = payload;
-  next();
 };

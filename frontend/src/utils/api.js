@@ -1,4 +1,4 @@
-import { token, urlFetch } from './utils.js';
+import { urlFetch } from './utils.js';
 
 class Api {
     constructor({ url, headers }) {
@@ -20,14 +20,14 @@ class Api {
 
     async changeLikeCardStatus(id, isLikedCard) {
         if (!isLikedCard) {
-            const res = await fetch(`${this._url}/cards/likes/${id}`, {
+            const res = await fetch(`${this._url}/cards/${id}/likes`, {
                 credentials: 'include',
                 method: 'PUT',
                 headers: this._headers
             });
             return this._checkResponse(res);
         } else {
-            const res = await fetch(`${this._url}/cards/likes/${id}`, {
+            const res = await fetch(`${this._url}/cards/${id}/likes`, {
                 credentials: 'include',
                 method: 'DELETE',
                 headers: this._headers
@@ -92,11 +92,10 @@ class Api {
     }
 }
 
-const api = new Api({         // <=  тут же создал экзмепляр, ниже экспорт
+const api = new Api({ // <=  тут же создал экзмепляр, ниже экспорт
     url: urlFetch,
     headers: {
-        // authorization: token,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
     }
 });
 

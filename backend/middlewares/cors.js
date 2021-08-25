@@ -6,7 +6,7 @@ const allowedCors = [
   'https://avdeev.nomoredomains.monster',
   'http://avdeev.nomoredomains.monster',
   'http://localhost:3000',
-  'http://localhost:3001', // потом убрать
+  'http://localhost:3001',
 ];
 
 // eslint-disable-next-line consistent-return

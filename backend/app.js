@@ -9,7 +9,7 @@ const helmet = require('helmet');
 const usersRoutes = require('./routes/users');
 const cardsRoutes = require('./routes/cards');
 const { messageList } = require('./utils/utils');
-const { login, createUser } = require('./controllers/users');
+const { login, createUser, deleteAuth } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/not-found-err');
 const BadRequestError = require('./errors/bad-request');
@@ -63,6 +63,14 @@ app.post('/signup',
 app.use(auth);
 
 // роуты, которым авторизация нужна
+app.use('/signout',
+  celebrate({
+    cookies: Joi.object().keys({
+      token: Joi.string().required().min(20),
+    }),
+  }),
+  deleteAuth);
+
 app.use('/users',
   celebrate({
     cookies: Joi.object().keys({

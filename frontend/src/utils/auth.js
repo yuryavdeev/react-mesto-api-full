@@ -1,11 +1,12 @@
-import { urlAuth } from "./utils";
+import { urlFetch } from "./utils";
 
 const checkResponse = (res) => {
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status} - ${res.statusText}`);
 }
 
 export const register = async ({ password, email }) => {
-    const res = await fetch(`${urlAuth}/signup`, {
+    const res = await fetch(`${urlFetch}/signup`, {
+        credentials: "include",
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -19,7 +20,8 @@ export const register = async ({ password, email }) => {
 }
 
 export const authorize = async ({ password, email }) => {
-    const res = await fetch(`${urlAuth}/signin`, {
+    const res = await fetch(`${urlFetch}/signin`, {
+        credentials: "include",
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -29,18 +31,26 @@ export const authorize = async ({ password, email }) => {
             email: email
         })
     });
-    console.log(res)
     return checkResponse(res);
 }
 
-export const checkToken = async () => {
-    // export const checkToken = async (token) => {
-    const res = await fetch('http://localhost:3000/users/me', {
+export const checkAuth = async () => {
+    const res = await fetch(`${urlFetch}/users/me`, {
         credentials: 'include',
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${token}`
+        }
+    });
+    return checkResponse(res);
+}
+
+export const deleteAuth = async () => {
+    const res = await fetch(`${urlFetch}/signout`, {
+        credentials: 'include',
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
         }
     });
     return checkResponse(res);

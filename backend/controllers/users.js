@@ -30,6 +30,18 @@ module.exports.login = (req, res, next) => {
     .catch(next);
 };
 
+// eslint-disable-next-line no-unused-vars
+module.exports.deleteAuth = (req, res, next) => {
+  res
+    .clearCookie('token', {
+      maxAge: 0,
+      httpOnly: true,
+      sameSite: 'None',
+      secure: true,
+    })
+    .send({ message: 'Авторизация отменена!' });
+};
+
 module.exports.createUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,

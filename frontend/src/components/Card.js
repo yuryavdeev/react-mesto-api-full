@@ -4,9 +4,9 @@ import { CurrentUser } from '../contexts/CurrentUserContext';
 const Card = React.memo(({ onCardClick, card, onCardLike, onCardDelete }) => {
 
     const currentUser = React.useContext(CurrentUser);
-    const isOwnCard = card.owner._id === currentUser._id;
+    const isOwnCard = card.owner === currentUser._id;
     const isLikedCard = card.likes.some(someLike =>
-        someLike._id === currentUser._id);
+        someLike === currentUser._id);
     // консты для именения рендера корзины и лайка (в className): - v
     const cardDeleteButtonClassName = (`card__basket ${!isOwnCard && 'card__basket_hidden'}`);
     const cardLikeButtonClassName = (`card__like ${isLikedCard && 'card__like_click'}`);
