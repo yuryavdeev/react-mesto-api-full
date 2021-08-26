@@ -31,28 +31,32 @@ function App() {
 
     // авторизация при входе
     React.useEffect(() => {
-        checkAuth()
-            .then((res) => {
-                console.log(res)
-                setLoggedIn(true);
-                setUserEmail(res.email);
-                moveToMain();
-            })
-            .catch(err => {
-                console.log(err);
-                moveToAuth();
-            })
+        if (localStorage.isAuth) {
+            checkAuth()
+                .then((res) => {
+                    console.log(res)
+                    setLoggedIn(true);
+                    setUserEmail(res.email);
+                    moveToMain();
+                })
+                .catch(err => {
+                    console.log(err);
+                    moveToAuth();
+                })
+        }
     }, []);
 
     React.useEffect(() => {
-        Promise.all([api.getUserInfo(), api.getCards()])
-            .then(([userData, dataCardList]) => {
-                setCurrentUser(userData);
-                // dataCardList = dataCardList.slice(0, 6);  // <<<===
-                setCards(dataCardList);
-            })
-            .catch(err => console.log(err))
-    }, []);
+        if (loggedIn) {
+            Promise.all([api.getUserInfo(), api.getCards()])
+                .then(([userData, dataCardList]) => {
+                    setCurrentUser(userData);
+                    // dataCardList = dataCardList.slice(0, 6);  // <<<===
+                    setCards(dataCardList);
+                })
+                .catch(err => console.log(err))
+        }
+    }, [loggedIn]);
 
     // авторизация при сабмите
     const onLogin = ({ password, email }) => {
@@ -62,6 +66,8 @@ function App() {
                 console.log(data)
                 setUserEmail(email);
                 setLoggedIn(true);
+                localStorage.setItem('isAuth', true);
+                console.log(localStorage);
                 moveToMain();
             })
             .catch((err) => {
@@ -80,6 +86,7 @@ function App() {
                 setUserEmail('');
                 moveToAuth();
                 setLoggedIn(false);
+                localStorage.removeItem('isAuth');
             })
             .catch((err) => {
                 console.log(err);

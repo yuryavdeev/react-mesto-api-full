@@ -13,6 +13,7 @@ class Api {
     async getUserInfo() {
         const res = await fetch(`${this._url}/users/me`, {
             credentials: 'include',
+            method: 'GET',
             headers: this._headers
         });
         return this._checkResponse(res);
@@ -92,7 +93,7 @@ class Api {
     }
 }
 
-const api = new Api({ // <=  тут же создал экзмепляр, ниже экспорт
+const api = new Api({ // <=  тут же создал экзмепляр
     url: urlFetch,
     headers: {
         'Content-Type': 'application/json',

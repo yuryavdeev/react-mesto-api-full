@@ -76,8 +76,24 @@ module.exports.getAllUsers = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.getUser = (req, res, next) => { // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  User.findById(req.params.userId ? req.params.userId : req.user._id)
+module.exports.getMyData = (req, res, next) => {
+  User.findById(req.user._id)
+    .orFail(() => {
+      throw new NotFoundError(messageList.notFoundUser);
+    })
+    .then((user) => res.send(user))
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        const error = new BadRequestError(messageList.badRequestGetUser);
+        next(error);
+      } else {
+        next(err);
+      }
+    });
+};
+
+module.exports.getUser = (req, res, next) => {
+  User.findById(req.params.userId)
     .orFail(() => {
       throw new NotFoundError(messageList.notFoundUser);
     })

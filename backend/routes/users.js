@@ -3,12 +3,12 @@ const { celebrate, Joi } = require('celebrate');
 const { checkUrl } = require('../utils/utils');
 
 const {
-  getAllUsers, getUser, updateUser, updateAvatar,
+  getAllUsers, getUser, getMyData, updateUser, updateAvatar,
 } = require('../controllers/users');
 
 router.get('/', getAllUsers);
 
-router.get('/me', getUser); // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+router.get('/me', getMyData); // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 router.get('/:userId',
   celebrate({
