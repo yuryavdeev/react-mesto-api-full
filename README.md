@@ -1,5 +1,5 @@
 # react-mesto-api-full
 Приложение проекта `Mesto`, включающее фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями.    
 Вы можете ознакомиться c сайтом  [по этой ссылке](https://avdeev.nomoredomains.monster).    
-API расположен по адресу - https://api.avdeev.nomoredomains.monster.
+API (178.154.220.90) расположен по адресу - https://api.avdeev.nomoredomains.monster.
   
