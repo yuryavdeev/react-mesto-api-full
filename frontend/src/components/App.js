@@ -67,7 +67,6 @@ function App() {
                 setUserEmail(email);
                 setLoggedIn(true);
                 localStorage.setItem('isAuth', true);
-                console.log(localStorage);
                 moveToMain();
             })
             .catch((err) => {

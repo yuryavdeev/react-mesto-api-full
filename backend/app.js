@@ -69,16 +69,8 @@ app.use(auth);
 
 // роуты, которым авторизация нужна
 app.use('/signout', deleteAuth);
-
 app.use('/users', usersRoutes);
-
-app.use('/cards',
-  celebrate({
-    cookies: Joi.object().keys({
-      token: Joi.string().required().min(20),
-    }),
-  }),
-  cardsRoutes);
+app.use('/cards', cardsRoutes);
 
 // переход на несуществующий роут
 app.use((req, res, next) => {
