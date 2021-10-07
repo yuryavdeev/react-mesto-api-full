@@ -51,7 +51,7 @@ function App() {
             Promise.all([api.getUserInfo(), api.getCards()])
                 .then(([userData, dataCardList]) => {
                     setCurrentUser(userData);
-                    // dataCardList = dataCardList.slice(0, 6);  // <<<===
+                    dataCardList = dataCardList.slice(0, 6);  // <<<===
                     setCards(dataCardList);
                 })
                 .catch(err => console.log(err))
@@ -273,6 +273,7 @@ function App() {
                         onCardLike={handleCardLike}
                         onCardDelete={handleCardDelete}
                     />
+                    
                 </Switch>
 
                 <EditAvatarPopup

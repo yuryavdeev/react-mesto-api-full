@@ -10,7 +10,7 @@ https://avdeev.nomoredomains.monster
 - постановка и снятие лайка.    
 
 ## Особенности        
-- взаимодействие со "своим" API - по адресу - https://api.avdeev.nomoredomains.monster (178.154.220.90),    
+- взаимодействие со "своим" API - по адресу - https://api.avdeev.nomoredomains.monster (178.154.222.53),    
 - обеспечен кросс-доменный доступ с адреса https://avdeev.nomoredomains.monster,    
 - реализовано логирование запросов и ошибок (backend\middlewares\logger.js),    
 - на сервере создан .env-файл, в него добавлены переменные окружения:

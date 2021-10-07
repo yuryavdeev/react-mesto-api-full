@@ -5,8 +5,8 @@ const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 const allowedCors = [
   'https://avdeev.nomoredomains.monster',
   'http://avdeev.nomoredomains.monster',
-  // 'http://localhost:3000',
-  // 'http://localhost:3001',
+  'http://localhost:3000',
+  'http://localhost:3001',
 ];
 
 // eslint-disable-next-line consistent-return

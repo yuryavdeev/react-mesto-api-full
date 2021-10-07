@@ -16,7 +16,7 @@ router.get('/:userId',
       userId: Joi.string().length(24).hex().required(),
     }),
   }),
-  getUser); // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  getUser); // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 router.patch('/me',
   celebrate({

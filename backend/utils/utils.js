@@ -8,21 +8,21 @@ const messageList = {
   notFoundUser: 'Пользователь с указанным _id не найден.',
 
   badRequestCreateCard: 'Переданы некорректные данные при создании карточки.',
-  badRequestDeleteCard: 'Переданы некорректные данные при удалении карточки',
-  badRequestSetLike: 'Переданы некорректные данные для постановки лайка',
-  badRequestDeleteLike: 'Переданы некорректные данные для снятия лайка',
+  badRequestDeleteCard: 'Переданы некорректные данные при удалении карточки.',
+  badRequestSetLike: 'Переданы некорректные данные для постановки лайка.',
+  badRequestDeleteLike: 'Переданы некорректные данные для снятия лайка.',
   notFoundCard: 'Карточка с указанным _id не найдена.',
 
-  notFoundPage: 'Страница не существует',
+  notFoundPage: 'Страница не существует.',
 
   conflictCreateUser: 'Профиль с таким e-mail уже существует!',
 
-  unauthorizedEmailOrPassword: 'Почта или пароль введены неправильно',
+  unauthorizedEmailOrPassword: 'Почта или пароль введены неправильно.',
   unauthorizedCheckAuthMessage: 'Необходима авторизация!',
 
   forbiddenMessage: 'Нет доступа!',
 
-  serverErrorMessage: 'Ошибка на сервере',
+  serverErrorMessage: 'Ошибка на сервере.',
 };
 
 const checkUrl = (value) => { // <<<===
